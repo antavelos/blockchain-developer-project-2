@@ -23,6 +23,9 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const PROJECT_ID = process.env.PROJECT_ID;
+const MNEMONIC = process.env.MNEMONIC;
 
 module.exports = {
   /**
@@ -51,7 +54,6 @@ module.exports = {
     develop: {
       port: 8545
     },
-
     // Another network with more advanced options...
     // advanced: {
       // port: 8777,             // Custom port
@@ -62,6 +64,12 @@ module.exports = {
       // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
 
+    sepolia: {
+      provider: () => new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${PROJECT_ID}`),
+      network_id: 11155111,
+      gas: 4500000,
+      gasPrice: 10000000000,
+    }
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     // ropsten: {
